@@ -28,6 +28,9 @@ jobs:
           command: 
             npm run backend:build
       - run:
+          name: set-env-variables
+          command: cd udagram-api && eb use udagram-api-dev && eb setenv AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY && cd ..
+      - run:
           name: Deploy frontend
           command: 
             npm run frontend:deploy
