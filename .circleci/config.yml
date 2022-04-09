@@ -10,6 +10,9 @@ jobs:
     steps:
       - node/install:
           node-version: 12.22.10
+      - aws-cli/setup
+      - eb/setup
+          
       - checkout
       - run:
           name: Front-End Install
@@ -29,23 +32,8 @@ jobs:
           name: Deploy frontend
           command: 
             npm run frontend:deploy
-  deploy:  
-    docker:
-      - image: "cimg/base:stable"
-    steps:
-      - node/install
-      - checkout
-      - aws-cli/setup
-      - eb/setup
       - run:
           name: Deploy backend
           command: |
-            npm run backend:deploy      
-workflows:
-  version: 2        
-  build_and_deploy:            
-    jobs:
-      - build
-      - deploy:
-           requires: 
-             - build
+            npm run backend:deploy  
+
